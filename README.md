@@ -5,12 +5,11 @@ This repository contains my personal solutions for problems on Project Euler.
 
 ## Structure
 
-The directory "Problems" contains all problems that I have solved. In the
-folders you will find subdirectories for the programming languages.
+The directory "Problems" contains all problems that I have solved so far. Inside
+the folders you will find subdirectories for each programming language.
 
 Each solution directory consists of a dev.org file that contains the problem
-description, solution code as well as the code result. This org file is to be
-used with emacs.
+description and solution code. This org file is to be used with emacs.
 
 ## Programming Languages
 
