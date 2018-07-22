@@ -1,0 +1,7 @@
+* Project Euler Solutions
+
+This repository contains all of my solutions for Project Euler
+in various programming languages.
+
+You should not use these solutions to cheat, as that is against
+the spirit of the website.
