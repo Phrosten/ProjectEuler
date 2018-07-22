@@ -11,15 +11,13 @@ Find the sum of all the multiples of 3 or 5 below 1000.
 
 ** Solution
 
-#+BEGIN_SRC python :results output
+#+BEGIN_SRC python :results output :exports both
 result = 0
 for i in range(0, 1000):
     if i % 3 == 0 or i % 5 == 0:
         result += i
 print(result)
 #+END_SRC
-
-** Result
 
 #+RESULTS:
 : 233168
