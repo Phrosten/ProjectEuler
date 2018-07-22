@@ -1,0 +1,16 @@
+#+OPTIONS: toc:nil
+
+* Title
+
+** Task
+
+Description
+
+** Solution
+
+#+BEGIN_SRC python :results output :exports both
+
+#+END_SRC
+
+#+RESULTS:
+: 
