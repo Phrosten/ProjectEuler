@@ -1,0 +1,37 @@
+#+OPTIONS: toc:nil
+
+* Summation of primes
+
+** Task
+
+The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+
+Find the sum of all the primes below two million.
+
+** Solution
+
+I *tried* applying the Sieve of Erastosthenes, but it is very inefficient
+for large numbers.
+
+#+BEGIN_SRC python :results output :exports both
+import math
+
+def is_prime(n):
+    if n == 2:
+        return True
+
+    for i in range(2, math.ceil(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+total = 2
+for n in range(3, 2000000, 2):
+    if is_prime(n):
+        total += n
+
+print(total)
+#+END_SRC
+
+#+RESULTS:
+: 142913828922
