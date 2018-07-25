@@ -1,0 +1,42 @@
+#+OPTIONS: toc:nil
+
+* 10001st prime
+
+** Task
+
+By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that
+the 6th prime is 13.
+
+What is the 10 001st prime number?
+
+** Solution
+
+#+BEGIN_SRC python :results output :exports both
+import math
+
+def is_prime(n):
+    if n == 2:
+        return True
+
+    for i in range(2, math.ceil(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+count = 0
+number = 2
+
+while True:
+    if is_prime(number):
+        count += 1
+
+    if count != 10001:
+        number += 1
+    else:
+        break
+
+print(number)
+#+END_SRC
+
+#+RESULTS:
+: 104743
