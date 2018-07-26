@@ -1,0 +1,50 @@
+#+OPTIONS: toc:nil
+
+* Lattice paths
+
+** Task
+
+Starting in the top left corner of a 2×2 grid, and only being able to move to
+the right and down, there are exactly 6 routes to the bottom right corner.
+
+[[./Problem-15-0.gif]]
+
+How many such routes are there through a 20×20 grid?
+
+** Solution
+
+For this problem I actually did some reasearch on permutations. It turns out,
+that one does not need a very complex algorithm.
+
+If you imagine a 20x20 grid in the style of the one given in the task, the moves
+can be described via a combination of down (*d*) and right (*r*). In order to
+arrive at the bottom right corner, one *has* to make 20 moves down and 20 moves
+right.
+
+Therefore any given possibility is a permutation of the string
+
+> ddddddddddddddddddddrrrrrrrrrrrrrrrrrrrr
+(20 down, 20 right)
+
+Now you can plug this into a [[https://en.wikipedia.org/wiki/Permutation#Permutations_of_multisets][formula]] to get all possible permutations of this
+kind of anagram:
+
+n!/(d!*r!)
+
+n.. Number of characters
+d.. Number of downs
+r.. Number of rights
+
+Therefore there are
+
+> 40!/(20!*20!) = 137846528820
+
+solutions.
+
+#+BEGIN_SRC python :results output :exports both
+from math import factorial, pow
+print(factorial(40) / (pow(factorial(20), 2)))
+#+END_SRC
+
+#+RESULTS:
+: 137846528820.0
