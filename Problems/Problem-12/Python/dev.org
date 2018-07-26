@@ -52,4 +52,4 @@ print(triangle_number)
 #+END_SRC
 
 #+RESULTS:
-: 25200
+: 76576500
