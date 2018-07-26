@@ -1,0 +1,86 @@
+#+OPTIONS: toc:nil
+
+* Number letter count
+
+** Task
+
+By starting at the top of the triangle below and moving to adjacent numbers on
+the row below, the maximum total from top to bottom is 23.
+
+   3
+  7 4
+ 2 4 6
+8 5 9 3
+
+That is, 3 + 7 + 4 + 9 = 23.
+
+Find the maximum total from top to bottom of the triangle below:
+
+               75
+              95 64
+             17 47 82
+            18 35 87 10
+           20 04 82 47 65
+          19 01 23 75 03 34
+         88 02 77 73 07 63 67
+        99 65 04 28 06 16 70 92
+       41 41 26 56 83 40 80 70 33
+      41 48 72 33 47 32 37 16 94 29
+     53 71 44 65 25 43 91 52 97 51 14
+    70 11 33 28 77 73 17 78 39 68 17 57
+   91 71 52 38 17 14 91 43 58 50 27 29 48
+  63 66 04 68 89 53 67 30 73 16 69 87 40 31
+04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
+
+NOTE: As there are only 16384 routes, it is possible to solve this problem by
+trying every route. However, Problem 67, is the same challenge with a triangle
+containing one-hundred rows; it cannot be solved by brute force, and requires a
+clever method! ;o)
+
+** Solution
+
+For this simpler version of the problem, I will use *brute* *force*.
+
+#+BEGIN_SRC python :results output :exports both
+import math
+
+raw = """75
+95 64
+17 47 82
+18 35 87 10
+20 04 82 47 65
+19 01 23 75 03 34
+88 02 77 73 07 63 67
+99 65 04 28 06 16 70 92
+41 41 26 56 83 40 80 70 33
+41 48 72 33 47 32 37 16 94 29
+53 71 44 65 25 43 91 52 97 51 14
+70 11 33 28 77 73 17 78 39 68 17 57
+91 71 52 38 17 14 91 43 58 50 27 29 48
+63 66 04 68 89 53 67 30 73 16 69 87 40 31
+04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"""
+
+numbers = [[int(y) for y in x.split(" ")] for x in raw.split("\n")]
+
+# Iterate the entire tree by going either left (0) or right(1)
+# -> There are 14 choices, therefore 2^14 possibilities
+# Every path can be described as a string of fourteen 0's and 1's.
+
+
+max_path_value = 0
+for i in range(0, int(math.pow(2, 14))):
+    path = "{0:014b}".format(i)
+    path_ptr = 0
+    path_value = numbers[0][0]
+    for turn in range(0, len(path)):
+        path_ptr += int(path[turn])
+        path_value += numbers[turn + 1][path_ptr]
+
+    if path_value > max_path_value:
+        max_path_value = path_value
+
+print(max_path_value)
+#+END_SRC
+
+#+RESULTS:
+: 1074
