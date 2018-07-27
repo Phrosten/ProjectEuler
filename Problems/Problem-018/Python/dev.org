@@ -1,6 +1,6 @@
 #+OPTIONS: toc:nil
 
-* Number letter count
+* Maximum path sum I
 
 ** Task
 

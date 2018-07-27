@@ -1,6 +1,6 @@
 #+OPTIONS: toc:nil
 
-* Number letter count
+* Counting Sundays
 
 ** Task
 
