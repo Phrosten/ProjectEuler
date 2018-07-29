@@ -1,0 +1,52 @@
+#+OPTIONS: toc:nil
+
+* Lexicographic permutations
+
+** Task
+
+A permutation is an ordered arrangement of objects. For example, 3124 is one
+possible permutation of the digits 1, 2, 3 and 4. If all of the permutations are
+listed numerically or alphabetically, we call it lexicographic order. The
+lexicographic permutations of 0, 1 and 2 are:
+
+012   021   102   120   201   210
+
+What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5,
+6, 7, 8 and 9
+?
+** Solution
+
+#+BEGIN_SRC python :results output :exports both
+from math import factorial
+
+INDEX = 1000000 - 1 # -1 since algorithm is 0 based
+MAX_NUMBER = 9
+
+# The current permutation: x is an unknown digit
+digits = [x for x in range(0, MAX_NUMBER + 1)]
+permutation = "x" * (MAX_NUMBER + 1)
+lower_index = 0
+
+# Eliminate all unknown variables
+while permutation.count("x") > 0:
+    # Calculate the combinations of the next level
+    combinations = factorial(permutation.count("x") - 1)
+
+    # Calculate the index limits for the remaining digits
+    index_limit = lower_index + combinations
+    for digit in digits:
+        # If the required index can be put into a digit 'category'
+        if INDEX < index_limit:
+            # Update the permutation
+            permutation = permutation.replace("x", str(digit), 1)
+            # Set the now lower index boundry
+            lower_index = index_limit - combinations
+            digits.remove(digit)
+            break
+        index_limit += combinations
+
+print(permutation)
+#+END_SRC
+
+#+RESULTS:
+: 2783915460
