@@ -1,0 +1,50 @@
+#+OPTIONS: toc:nil
+
+* Digit fifth powers
+
+** Task
+
+Surprisingly there are only three numbers that can be written as the sum of
+fourth powers of their digits:
+
+    1634 = 1^4 + 6^4 + 3^4 + 4^4
+    8208 = 8^4 + 2^4 + 0^4 + 8^4
+    9474 = 9^4 + 4^4 + 7^4 + 4^4
+
+As 1 = 1^4 is not a sum it is not included.
+
+The sum of these numbers is 1634 + 8208 + 9474 = 19316.
+
+Find the sum of all the numbers that can be written as the sum of fifth powers
+of their digits.
+
+** Solution
+
+To use a brute force approach, one has to find the point at which it becomes
+impossible to create that desired sum. Since modern computers are quite powerful
+one does not have to find a very accurate limit.
+
+The maximum sum one can obtain with a given number of digits is n * 9^5, while
+the number itself is restricted to (sum 9*10^x for x = 0 to n).
+
+If you plug this into Wolfram Alpha, you can see that both functions meet at a
+number lower than 300000. Therefore I choose the upper limit of 300000.
+
+#+BEGIN_SRC python :results output :exports both
+import math
+
+def is_digit_sum(n):
+    result = 0
+    for c in str(n):
+        result += math.pow(int(c), 5)
+    return result == n
+
+total = 0
+for n in range(2, 300000):
+    if is_digit_sum(n):
+        total += n
+print(total)
+#+END_SRC
+
+#+RESULTS:
+: 443839
