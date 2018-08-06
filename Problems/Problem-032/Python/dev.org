@@ -1,0 +1,64 @@
+#+OPTIONS: toc:nil
+
+* Pandigital products
+
+** Task
+
+We shall say that an n-digit number is pandigital if it makes use of all the
+digits 1 to n exactly once; for example, the 5-digit number, 15234, is 1
+through 5 pandigital.
+
+The product 7254 is unusual, as the identity, 39 × 186 = 7254, containing
+multiplicand, multiplier, and product is 1 through 9 pandigital.
+
+Find the sum of all products whose multiplicand/multiplier/product identity can
+be written as a 1 through 9 pandigital.
+
+HINT: Some products can be obtained in more than one way so be sure to only
+include it once in your sum.
+
+
+** Solution
+
+#+BEGIN_SRC python :results output :exports both
+products = set()
+
+
+def pan_digital_product(string):
+    for star_ptr in range(1, len(string) + 1):
+        for equal_ptr in range(star_ptr + 1, len(string)):
+            a = int(string[:star_ptr])
+            b = int(string[star_ptr:equal_ptr])
+            r = int(string[equal_ptr:])
+            if a * b > r:
+                break
+            if a * b == r:
+                products.add(r)
+        a = int(string[:star_ptr])
+        b = int(string[star_ptr:star_ptr + 1])
+        r = int(string[star_ptr + 1:])
+        if a * b > r:
+            break
+
+
+def pan_digital_strings(string, digits):
+    if len(digits) == 0:
+        pan_digital_product(string)
+
+    for digit in digits:
+        new_list = list(digits)
+        new_list.remove(digit)
+        pan_digital_strings(
+            string.replace("x", str(digit), 1),
+            new_list
+        )
+
+
+LIMIT = 9
+pan_digital_strings(LIMIT * "x", [x for x in range(1, LIMIT + 1)])
+
+print(sum(products))
+#+END_SRC
+
+#+RESULTS:
+: 45228
