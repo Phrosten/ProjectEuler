@@ -1,0 +1,38 @@
+#+OPTIONS: toc:nil
+
+* Digit factorials
+
+** Task
+
+145 is a curious number, as 1! + 4! + 5! = 1 + 24 + 120 = 145.
+
+Find the sum of all numbers which are equal to the sum of the factorial of their
+digits.
+
+Note: as 1! = 1 and 2! = 2 are not sums they are not included.
+
+** Solution
+
+Once again, a brute force approach. The upper limit can be derived by checking
+when the largest n digit number is bigger than the digit factorial of that
+number.
+
+By typing [[http://www.wolframalpha.com/input/?i=sum+9*10%5En,+n%3D0+to+x+%3D+x*9!][sum 9*10^n, n=0 to x = x*9!]] into Wolfram Alpha, one can see that they meet
+below 2,000,000.
+
+#+BEGIN_SRC python :results output :exports both
+from math import factorial
+
+factorials = []
+for i in range(0, 10):
+    factorials.append(factorial(i))
+
+total = 0
+for n in range(3, 2000000):
+    if n == sum([factorials[int(x)] for x in str(n)]):
+        total += n
+print(total)
+#+END_SRC
+
+#+RESULTS:
+: 40730
