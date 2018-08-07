@@ -1,0 +1,45 @@
+#+OPTIONS: toc:nil
+
+* Digit cancelling fractions
+
+** Task
+
+The fraction 49/98 is a curious fraction, as an inexperienced mathematician in
+attempting to simplify it may incorrectly believe that 49/98 = 4/8, which is
+correct, is obtained by cancelling the 9s.
+
+We shall consider fractions like, 30/50 = 3/5, to be trivial examples.
+
+There are exactly four non-trivial examples of this type of fraction, less than
+one in value, and containing two digits in the numerator and denominator.
+
+If the product of these four fractions is given in its lowest common terms, find
+the value of the denominator.
+
+
+** Solution
+
+#+BEGIN_SRC python :results output :exports both
+def cancel_digit(n, d):
+    return int(str(n)[d])
+
+def try_cancel_digit(x, y):
+    cancelable = lambda a: str(x)[a] == str(y)[1 - a]
+    try:
+        if ((cancelable(0) and cancel_digit(x, 1) / cancel_digit(y, 0) == x / y) or
+            (cancelable(1) and cancel_digit(x, 0) / cancel_digit(y, 1) == x / y)):
+            return y / x
+    except ZeroDivisionError:
+        return 1
+    return 1
+
+total = 1
+for x in range(10, 100):
+    for y in range(x + 1, 100):
+        total *= try_cancel_digit(x, y)
+
+print(int(total))
+#+END_SRC
+
+#+RESULTS:
+: 100
